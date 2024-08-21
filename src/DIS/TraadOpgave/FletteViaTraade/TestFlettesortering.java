@@ -9,10 +9,10 @@ public class TestFlettesortering {
         List<Integer> list = new ArrayList<Integer>();
         Random r = new Random();
 
-        for (int i = 0; i < 25; i++) {
+        for (int i = 0; i < 1000000; i++) {
             list.add(Math.abs(r.nextInt() % 10000));
         }
-        System.out.println(list);
+//        System.out.println(list);
         FletteSortering sort = new FletteSortering();
 
         long l1, l2;
@@ -21,11 +21,18 @@ public class TestFlettesortering {
         Traad2 traad2 = new Traad2(list,sort);
         traad1.start();
         traad2.start();
+        try {
+            traad1.join();
+            traad2.join();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        sort.merge(list,0,list.size()/2,list.size()-1);
         l2 = System.nanoTime();
         System.out.println();
         System.out.println("Koeretiden var " + (l2 - l1) / 1000000);
         System.out.println();
-        System.out.println(list);
+//        System.out.println(list);
     }
 }
 

@@ -13,7 +13,7 @@ public class Traad2 extends Thread{
 
     @Override
     public void run() {
-        sortering.mergesort(liste,liste.size()/2,liste.size());
+        sortering.mergesort(liste,liste.size()/2+1,liste.size()-1);
     }
 }
 
