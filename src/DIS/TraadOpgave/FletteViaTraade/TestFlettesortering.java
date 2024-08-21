@@ -17,7 +17,10 @@ public class TestFlettesortering {
 
         long l1, l2;
         l1 = System.nanoTime();
-        sort.mergesort(list, 0, list.size() - 1);
+        Traad1 traad1 = new Traad1(list,sort);
+        Traad2 traad2 = new Traad2(list,sort);
+        traad1.start();
+        traad2.start();
         l2 = System.nanoTime();
         System.out.println();
         System.out.println("Koeretiden var " + (l2 - l1) / 1000000);

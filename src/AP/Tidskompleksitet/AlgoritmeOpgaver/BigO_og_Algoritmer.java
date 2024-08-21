@@ -1,4 +1,4 @@
-package AP.Tidskompleksitet;
+package AP.Tidskompleksitet.AlgoritmeOpgaver;
 
 import java.util.Arrays;
 
