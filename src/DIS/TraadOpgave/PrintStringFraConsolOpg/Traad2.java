@@ -1,7 +1,4 @@
-package DIS.TraadOpgave;
-
-import java.io.BufferedReader;
-import java.util.Scanner;
+package DIS.TraadOpgave.PrintStringFraConsolOpg;
 
 public class Traad2 extends Thread{
     MyString myString;

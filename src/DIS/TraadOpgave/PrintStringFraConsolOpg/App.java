@@ -1,4 +1,4 @@
-package DIS.TraadOpgave;
+package DIS.TraadOpgave.PrintStringFraConsolOpg;
 
 public class App {
     public static void main(String[] args) {

@@ -1,4 +1,4 @@
-package model;
+package AP.model;
 
 import javax.sound.midi.Soundbank;
 

@@ -1,4 +1,4 @@
-package DIS.TraadOpgave;
+package DIS.TraadOpgave.PrintStringFraConsolOpg;
 
 import java.io.Reader;
 
