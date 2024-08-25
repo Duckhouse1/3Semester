@@ -78,7 +78,7 @@ public class Nedboer {
                     maxAntalITræk = antalITræk;
                 }
             } else {
-                antalITræk = 0;
+                antalITræk = 1;
             }
         }
         return ugeNummeret;
