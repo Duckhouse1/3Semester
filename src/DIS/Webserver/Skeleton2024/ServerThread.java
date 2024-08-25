@@ -19,8 +19,7 @@ public class ServerThread extends Thread{
 			String[] stringArray = clientSentence.split("\s");
 			System.out.println("Requested path: " + stringArray[1]);
 			String contentType = ContentType(stringArray[1]);
-			byte[] fileContent;
-			fileContent = read("C:\\Users\\Denne\\OneDrive\\Skrivebord\\_3Semester\\src\\minWeb.html");
+			byte[] fileContent = read("C:\\Users\\Denne\\OneDrive\\Skrivebord\\_3Semester\\src\\minWeb.html");
 
 			// Send the HTTP response
 			outToClient.writeBytes("HTTP/1.1 200 OK\r\n");
