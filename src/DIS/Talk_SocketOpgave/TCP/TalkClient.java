@@ -21,7 +21,7 @@ public class TalkClient {
         String serverResponse = inFromServer.readLine();
         System.out.println("IP addresse: " + serverResponse);
 
-        Socket clemenServer = new Socket(serverResponse,6789);
+        Socket clemenServer = new Socket(serverResponse,5789);
         TalkWriteTraad skriveTraad = new TalkWriteTraad(clemenServer);
         TalkReadTraad læseTraad = new TalkReadTraad(clemenServer);
 
