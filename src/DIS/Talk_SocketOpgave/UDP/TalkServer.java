@@ -1,19 +1,19 @@
 package DIS.Talk_SocketOpgave.UDP;
 
-import java.net.ServerSocket;
-import java.net.Socket;
+import java.net.*;
 
 public class TalkServer {
 
     public static void main(String[] args) throws Exception {
-        ServerSocket welcomeSocket = new ServerSocket(5789);
-        System.out.println("Serveren venter på klient");
+        DatagramSocket serverSocket = new DatagramSocket(9876);
+//        byte[] receiveData = new byte[1024];
+//        byte[] sendData = new byte[1024];
 
-        Socket connectionSocket = welcomeSocket.accept(); //Dette man kalder three handshake (SYN -> ,  <- ACN/SYN , ACN ->)
-        System.out.println("Klient forbundet til Server");
+//        DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
+//        serverSocket.receive(receivePacket);
 
-        TalkReadTraad læseTraad = new TalkReadTraad(connectionSocket);
-        TalkWriteTraad writeTraad = new TalkWriteTraad(connectionSocket);
+        TalkReadTraad læseTraad = new TalkReadTraad(serverSocket);
+        TalkWriteTraad writeTraad = new TalkWriteTraad(serverSocket);
 
         læseTraad.start();
         writeTraad.start();

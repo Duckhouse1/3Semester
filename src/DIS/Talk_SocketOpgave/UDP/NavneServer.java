@@ -31,20 +31,13 @@ public class NavneServer {
     }
 
     public static void main(String[] args) throws IOException {
-        DatagramSocket serverSocket = new DatagramSocket(6798);
+        ServerSocket welcomeSocket = new ServerSocket(6798);
         System.out.println("Serveren venter på klient");
 
-        byte[] receiveData = new byte[1024];
-        byte[] sendData = new byte[1024];
+        Socket connectionSocket = welcomeSocket.accept();
+        System.out.println("Klient forbundet");
 
-        DatagramPacket receivePacket = new DatagramPacket(receiveData,receiveData.length);
-        serverSocket.receive(receivePacket);
-        String sentence = new String(receivePacket.getData());
-        InetAddress IPAddress = receivePacket.getAddress();
-        int port = receivePacket.getPort();
-
-
-        NavneServer server = new NavneServer(connectionSocket);
+        DIS.Talk_SocketOpgave.TCP.NavneServer server = new DIS.Talk_SocketOpgave.TCP.NavneServer(connectionSocket);
         server.getIP();
     }
 }

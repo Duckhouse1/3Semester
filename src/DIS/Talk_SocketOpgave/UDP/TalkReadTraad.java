@@ -3,26 +3,33 @@ package DIS.Talk_SocketOpgave.UDP;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.net.Socket;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.InetAddress;
 
 public class TalkReadTraad extends Thread {
-    private Socket connectionsSocket;
+    private DatagramSocket connectionsDatagramSocket;
 
-    public TalkReadTraad(Socket connectionsSocket) {
-        this.connectionsSocket = connectionsSocket;
+    public TalkReadTraad(DatagramSocket connectionDatagram) {
+        this.connectionsDatagramSocket = connectionDatagram;
     }
 
     @Override
     public void run() {
         try {
-            BufferedReader inFromServer = new BufferedReader(new InputStreamReader(connectionsSocket.getInputStream()));
-            while (true) {
+            byte[] receiveData = new byte[1024];
 
-                String streng = inFromServer.readLine();
-                if (streng.equalsIgnoreCase("Farvel")) {
-                    connectionsSocket.close();
+            while (true) {
+                DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
+                connectionsDatagramSocket.receive(receivePacket);
+
+                String sentence = new String(receivePacket.getData());
+
+                if (sentence.equalsIgnoreCase("Farvel")) {
+                    connectionsDatagramSocket.close();
                 }
-                System.out.println(streng);
+                System.out.println(sentence);
+
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
