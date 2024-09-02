@@ -6,10 +6,11 @@ public class Opgave5_BelgiskFlag {
     }
 
     public static void belgisk_flag(char[] belgisk_flag){
-        int sTæller = 0;
-        int gTæller = 0;
-        int rTæller = 0;
-        for (int i = 0; i < belgisk_flag.length; i++) {
+        int low = 0;
+        int mid = 0;
+        int high = belgisk_flag.length - 1;
+
+        while (mid <= high){
 
         }
     }
