@@ -121,7 +121,7 @@ public class BST<E extends Comparable<E>> {
             inorder(root.left);
         }
         System.out.println(root.element);
-        if (root.right != null){
+        if (root.right != null) {
             inorder(root.right);
         }
 
@@ -137,11 +137,12 @@ public class BST<E extends Comparable<E>> {
         postOrder(root);
 
     }
-    private void postOrder(TreeNode root){
-        if (root.left != null){
+
+    private void postOrder(TreeNode root) {
+        if (root.left != null) {
             postOrder(root.left);
         }
-        if (root.right != null){
+        if (root.right != null) {
             postOrder(root.right);
         }
         System.out.println(root.element);
@@ -156,45 +157,67 @@ public class BST<E extends Comparable<E>> {
         // left as an exercise
         preOrder(root);
     }
-    private void preOrder(TreeNode root){
+
+    private void preOrder(TreeNode root) {
         System.out.println(root.element);
-        if (root.left != null){
+        if (root.left != null) {
             preOrder(root.left);
         }
-        if (root.right != null){
+        if (root.right != null) {
             preOrder(root.right);
         }
     }
-    public List<E> inOrderList(){
+
+    public List<E> inOrderList() {
         List<E> liste = new ArrayList<>();
-        inorderList(root,liste);
+        inorderList(root, liste);
         return liste;
     }
-    private void inorderList(TreeNode root,List<E> liste){
-        if (root.left != null){
-            inorderList(root.left,liste);
+
+    private void inorderList(TreeNode root, List<E> liste) {
+        if (root.left != null) {
+            inorderList(root.left, liste);
         }
         liste.add(root.element);
-        if (root.right != null){
-            inorderList(root.right,liste);
+        if (root.right != null) {
+            inorderList(root.right, liste);
         }
     }
 
-    public int height(){
+    public int height() {
         return -1;
     }
-    public E findmax(){
+
+    public E findMax() {
         TreeNode max = root;
-        findMax(max);
+        while (max.right != null) {
+            max = max.right;
+        }
         return max.element;
     }
-    private void findMax(TreeNode root){
-        TreeNode max = null;
-        while (root.right != null){
-            max = root;
-        }
 
+    public E findMin() {
+        TreeNode min = root;
+        while (min.left != null) {
+            min = min.left;
+        }
+        return min.element;
     }
+
+
+    public int leafCount(TreeNode root) {
+        int leafeCount = 0;
+        if (root == null) {
+            return  0;
+        }
+        if (root.left == null && root.right == null) {
+            return  1;
+        }
+            leafeCount = leafCount(root.left) + leafCount(root.right);
+
+        return leafeCount;
+    }
+
 
     private class TreeNode {
         private E element;
@@ -217,7 +240,7 @@ public class BST<E extends Comparable<E>> {
     /**
      * Returns the root of the tree
      */
-    private TreeNode getRoot() {
+    public TreeNode getRoot() {
         return root;
     }
 

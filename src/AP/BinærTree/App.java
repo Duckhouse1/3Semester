@@ -14,10 +14,12 @@ public class App {
         træ.insert(88);
 
         System.out.println(træ);
-//        træ.inorder();
-//        træ.postorder();
-//        træ.preorder();
-        System.out.println(træ.inOrderList());
-        System.out.println(træ.findmax());
+//        System.out.println("Inorder:");træ.inorder();
+//        System.out.println("postOrder:");træ.postorder();
+//        System.out.println("preorder:");træ.preorder();
+//        System.out.println(træ.inOrderList());
+        System.out.println(træ.findMax());
+        System.out.println(træ.findMin());
+        System.out.println(træ.leafCount(træ.getRoot()));
     }
 }
