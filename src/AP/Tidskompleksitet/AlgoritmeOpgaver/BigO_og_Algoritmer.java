@@ -1,16 +1,15 @@
-package AP.AlgoritmeOpgaver;
+package AP.Tidskompleksitet.AlgoritmeOpgaver;
 
 import java.util.Arrays;
 
 public class BigO_og_Algoritmer {
     //Opgave 1
-    //Hvad er størrelsesordenen af tidskompleksiteten (Store O) af nedenstående
-    //metode ?
+    //Hvad er størrelsesordenen af tidskompleksiteten (Store O) af nedenstående metode ?
     //Spørgsmål a = O(n^2)
     //Spørgsmål b = 0(n^3)
 
     //Opgave 2
-    //T(isStringHello)n = O(1)
+    //T(isStringHello)n = O(1) <-- Dette er fordi .equals("Hello") sammenligner H, E,L,L,O og derfor bare er en konstant
     //T(CheckString)n = O(n)
     //T(MethodA)n = O(n^2)
     //T(PrivatMethodA) = O(n)

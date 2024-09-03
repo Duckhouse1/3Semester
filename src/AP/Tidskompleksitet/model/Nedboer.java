@@ -1,6 +1,4 @@
-package AP.model;
-
-import javax.sound.midi.Soundbank;
+package AP.Tidskompleksitet.model;
 
 public class Nedboer {
     public static void main(String[] args) {

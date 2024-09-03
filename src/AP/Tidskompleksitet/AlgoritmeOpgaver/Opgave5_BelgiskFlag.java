@@ -1,4 +1,4 @@
-package AP.AlgoritmeOpgaver;
+package AP.Tidskompleksitet.AlgoritmeOpgaver;
 
 public class Opgave5_BelgiskFlag {
     public static void main(String[] args) {
