@@ -18,7 +18,7 @@ public class TCPServer {
         BufferedReader inFromClient = new BufferedReader(new InputStreamReader(connectionSocket.getInputStream()));
         DataOutputStream outToClient = new DataOutputStream(connectionSocket.getOutputStream());
         System.out.println("Klient forbundet til Server");
-
+        Thread.sleep(60000);
         clientSentence = inFromClient.readLine();
         System.out.println(clientSentence);
         capitalizedSentence = clientSentence.toUpperCase() + '\n';

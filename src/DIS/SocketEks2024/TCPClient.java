@@ -17,7 +17,7 @@ public class TCPClient {
 		
 		BufferedReader inFromUser = new BufferedReader(new InputStreamReader(System.in));
 		
-		Socket clientSocket = new Socket("10.10.138.57", 6789);
+		Socket clientSocket = new Socket("10.10.138.193", 6789);
 		DataOutputStream outToServer = new DataOutputStream(clientSocket.getOutputStream());
 		System.out.println("Indtast et ord");
 

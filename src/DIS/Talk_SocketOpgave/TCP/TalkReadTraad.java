@@ -16,8 +16,8 @@ public class TalkReadTraad extends Thread {
     public void run() {
         try {
             BufferedReader inFromServer = new BufferedReader(new InputStreamReader(connectionsSocket.getInputStream()));
-            while (true) {
 
+            while (true) {
                 String streng = inFromServer.readLine();
                 if (streng.equalsIgnoreCase("Farvel")) {
                     connectionsSocket.close();
