@@ -1,4 +1,4 @@
-package dictionaryelev;
+package AP.Dictionary.dictionaryelev;
 
 public interface Dictionary<K, V> {
 

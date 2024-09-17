@@ -1,4 +1,4 @@
-package dictionaryelev;
+package AP.Dictionary.dictionaryelev;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
