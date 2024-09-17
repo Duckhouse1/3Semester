@@ -270,6 +270,18 @@ public class BST<E extends Comparable<E>> {
         return counter + tællerHøjre + tællerVenstre;
     }
 
+//    public List<E> greaterThan(E element){
+//        if (root != null) {
+//            return greaterThan(element,root);
+//        }
+//        return null;
+//    }
+//
+//    private List<E> greaterThan(E element,TreeNode node){
+//        List<E> elementListe = new ArrayList<>();
+//
+//    }
+
 
     private class TreeNode {
         private E element;
