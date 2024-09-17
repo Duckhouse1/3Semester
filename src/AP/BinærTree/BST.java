@@ -206,16 +206,68 @@ public class BST<E extends Comparable<E>> {
 
 
     public int leafCount(TreeNode root) {
-        int leafeCount = 0;
+        int leafeCounter = 0;
         if (root == null) {
-            return  0;
+            return 0;
         }
         if (root.left == null && root.right == null) {
-            return  1;
+            leafeCounter = 1;
         }
-            leafeCount = leafCount(root.left) + leafCount(root.right);
+        leafeCounter = leafeCounter + leafCount(root.left) + leafCount(root.right);
 
-        return leafeCount;
+        return leafeCounter;
+    }
+
+    public E removeMin() {
+        TreeNode min = root;
+        TreeNode removed = null;
+        while (min.left != null) {
+            if (min.left.left == null) {
+                TreeNode max = min.left;
+                while (max.right != null) {
+                    max = max.right;
+                }
+                removed = min.left;
+                min.left = max;
+            }
+            min = min.left;
+        }
+        return removed.element;
+    }
+
+    public E removeMax() {
+        TreeNode max = root;
+        TreeNode removed = null;
+        while (max.right != null) {
+            if (max.right.right == null) {
+                if (max.right.left != null) {
+                    removed = max.right;
+                    max.right = max.right.left;
+                }
+            }
+            max = max.right;
+        }
+        return removed.element;
+    }
+
+    public int greaterThanCount(E element) {
+        if (root != null) {
+            return greaterThanCOunt(element, root);
+        }
+        return 0;
+    }
+
+    private int greaterThanCOunt(E element, TreeNode node) {
+        if (node == null) {
+            return 0;
+        }
+        int counter = 0;
+        if (node.element.compareTo(element) > 0) {
+            counter = 1;
+        }
+        int tællerHøjre = greaterThanCOunt(element, node.right);
+        int tællerVenstre = greaterThanCOunt(element, node.left);
+        return counter + tællerHøjre + tællerVenstre;
     }
 
 
@@ -227,6 +279,7 @@ public class BST<E extends Comparable<E>> {
         private TreeNode(E e) {
             element = e;
         }
+
     }
 
 
