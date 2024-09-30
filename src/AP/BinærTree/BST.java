@@ -282,10 +282,11 @@ public class BST<E extends Comparable<E>> {
     }
 
     private List<E> greaterThan(E element, TreeNode node, List<E> list) {
-        List<E> startListe = new ArrayList<>(list);
         if (node == null) {
             return null;
         }
+        List<E> startListe = new ArrayList<>(list);
+
         if (node.element.compareTo(element) > 0) {
             list.add(node.element);
         }

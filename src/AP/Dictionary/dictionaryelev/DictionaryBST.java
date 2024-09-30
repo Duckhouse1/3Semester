@@ -10,10 +10,11 @@ public class DictionaryBST<K extends Comparable<K>, V> implements Dictionary<K, 
 
     @Override
     public V get(K key) {
-        Node element = find(key);
-        return element.value;
-
-
+        if (find(key) != null) {
+            Node element = find(key);
+            return element.value;
+        }
+        return null;
     }
 
     private Node find(K key) {
@@ -39,7 +40,6 @@ public class DictionaryBST<K extends Comparable<K>, V> implements Dictionary<K, 
 
     @Override
     public boolean isEmpty() {
-        // TODO
         return root == null;
     }
 
