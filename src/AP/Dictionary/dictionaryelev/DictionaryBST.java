@@ -45,56 +45,45 @@ public class DictionaryBST<K extends Comparable<K>, V> implements Dictionary<K, 
 
     @Override
     public V put(K key, V value) {
-		Node newNode = new Node(key,value);
+        Node newNode = new Node(key, value);
         if (root == null) {
             root = newNode;
-            return newNode.value;
-        } else {
-			Node current = root;
-			if (current.key.compareTo(key) > 0){
-				current = root.left;
-				while (current.left != null || current.right != null) {
-					while (current.key.compareTo(key) > 0) {
-						current = current.left;
-					}
-					while (current.key.compareTo(key) < 0){
-						current = current.right;
-					}
-				}
-			} else if (current.key.compareTo(key) == 0) {
-                Node gammelNode = current;
-				current = newNode;
-                return gammelNode.value;
-			} else {
-				current = root.right;
-				while (current.left != null || current.right != null) {
-					while (current.key.compareTo(key) > 0) {
-						current = current.left;
-					}
-					while (current.key.compareTo(key) < 0){
-						current = current.right;
-					}
-				}
-			}
-            if (current.key.compareTo(key) > 0){
-				current.left = newNode;
-			} else {
-				current.right = newNode;
-			}
+            return null;
         }
-        return newNode.value;
-
+        Node current = root;
+        while (current != null) {
+            int compareValue = key.compareTo(current.key);
+            if (compareValue == 0) {
+                V oldValue = current.value;
+                current.value = value;
+                return oldValue;
+            } else if (compareValue < 0) {
+                current = current.left;
+            } else {
+                current = current.right;
+            }
+        }
+        current = newNode;
+        return null;
     }
 
     @Override
     public V remove(K key) {
         // TODO
+
         return null;
     }
-
     @Override
     public int size() {
-        // TODO
+//        // TODO
+//        if (isEmpty()) {
+//            return 0;
+//        } else {
+//            int counter = 1;
+//            Node current;
+//
+//            return
+//        }
         return -1;
     }
 

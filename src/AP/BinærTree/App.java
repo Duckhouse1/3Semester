@@ -12,6 +12,7 @@ public class App {
         træ.insert(77);
         træ.insert(90);
         træ.insert(88);
+        træ.insert(60);
 
         System.out.println(træ);
 //        System.out.println("Inorder:");træ.inorder();
@@ -26,6 +27,10 @@ public class App {
         System.out.println("Det største element var " + træ.removeMax() + " og det er fjernet:");
         System.out.println(træ);
         System.out.println(træ.greaterThanCount(4));
-
+        System.out.println("Listen med alle tal der er større end: 4" + træ.greaterThan(4));
+        System.out.println(træ);
+        System.out.println("Summen af bladene: " + træ.sumOfLeafes());
+        System.out.println();
+        System.out.println(træ.heightNodeCount(2));
     }
 }

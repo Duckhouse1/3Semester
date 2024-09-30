@@ -4,6 +4,8 @@ import com.sun.source.tree.Tree;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * BST is a binary search tree.
@@ -218,6 +220,7 @@ public class BST<E extends Comparable<E>> {
         return leafeCounter;
     }
 
+
     public E removeMin() {
         TreeNode min = root;
         TreeNode removed = null;
@@ -270,22 +273,71 @@ public class BST<E extends Comparable<E>> {
         return counter + tællerHøjre + tællerVenstre;
     }
 
-//    public List<E> greaterThan(E element){
-//        if (root != null) {
-//            return greaterThan(element,root);
-//        }
-//        return null;
-//    }
-//
-//    private List<E> greaterThan(E element,TreeNode node){
-//        List<E> elementListe = new ArrayList<>();
-//
-//    }
+    public List<E> greaterThan(E element) {
+        List<E> liste = new ArrayList<>();
+        if (root != null) {
+            greaterThan(element, root, liste);
+        }
+        return liste;
+    }
 
+    private List<E> greaterThan(E element, TreeNode node, List<E> list) {
+        List<E> startListe = new ArrayList<>(list);
+        if (node == null) {
+            return null;
+        }
+        if (node.element.compareTo(element) > 0) {
+            list.add(node.element);
+        }
+        List<E> greaterThanListRight = greaterThan(element, node.right, list);
+        List<E> greaterThanListLeft = greaterThan(element, node.left, list);
+
+
+        return startListe;
+    }
+    public int sumOfLeafes(){
+        if (root != null){
+            return leafSum(root);
+        }
+        return 0;
+    }
+    private int leafSum(TreeNode node) {
+        int leafeSum = 0;
+        if (node == null) {
+            return 0;
+        }
+        if (node.left == null && node.right == null) {
+            leafeSum = (Integer) node.element;
+        }
+
+        return leafeSum + leafSum(node.left) + leafSum(node.right);
+    }
+
+    public int heightNodeCount(int targetHeight) {
+        if (root != null) {
+            return heIghtNodeCount(targetHeight, root, 0);
+        }
+        return 0;
+    }
+
+    private int heIghtNodeCount(int targetHeight, TreeNode node, int currentHeight) {
+        int counter = 0;
+        if (node == null) {
+            return  0;
+        }
+        if (currentHeight == targetHeight) {
+            if (node.right != null || node.left != null) {
+                counter = 1;
+            } else {
+                return  0;
+            }
+        }
+        return counter + heIghtNodeCount(targetHeight, node.right, currentHeight + 1) + heIghtNodeCount(targetHeight, node.left, currentHeight + 1);
+    }
 
     private class TreeNode {
         private E element;
-        private TreeNode left;
+        private BST.TreeNode left;
         private TreeNode right;
 
         private TreeNode(E e) {
