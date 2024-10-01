@@ -3,6 +3,7 @@ package AP.Dictionary.dictionaryelev;
 public class DictionaryBST<K extends Comparable<K>, V> implements Dictionary<K, V> {
 
     private Node root;
+    private int size;
 
     public DictionaryBST() {
         root = null;
@@ -48,6 +49,7 @@ public class DictionaryBST<K extends Comparable<K>, V> implements Dictionary<K, 
         Node newNode = new Node(key, value);
         if (root == null) {
             root = newNode;
+            size++;
             return null;
         }
         Node current = root;
@@ -64,6 +66,7 @@ public class DictionaryBST<K extends Comparable<K>, V> implements Dictionary<K, 
             }
         }
         current = newNode;
+        size++;
         return null;
     }
 
@@ -75,16 +78,7 @@ public class DictionaryBST<K extends Comparable<K>, V> implements Dictionary<K, 
     }
     @Override
     public int size() {
-//        // TODO
-//        if (isEmpty()) {
-//            return 0;
-//        } else {
-//            int counter = 1;
-//            Node current;
-//
-//            return
-//        }
-        return -1;
+        return size;
     }
 
     private class Node {

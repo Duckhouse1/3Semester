@@ -222,6 +222,9 @@ public class BST<E extends Comparable<E>> {
 
 
     public E removeMin() {
+        if (root != null){
+            return null;
+        }
         TreeNode min = root;
         TreeNode removed = null;
         while (min.left != null) {
