@@ -6,7 +6,7 @@ package AP.Hashing.myset;
 public class HashSetDemo {
 	public static void main(String[] args) {
 		MyHashSetChaining<String> names = new MyHashSetChaining(13);
-		//MyHashSetLinearProbing names = new MyHashSetLinearProbing(13);
+//		MyHashSetLinearProbing names = new MyHashSetLinearProbing(13);
 
 		names.add("Harry");
 		names.add("Sue");
@@ -20,11 +20,13 @@ public class HashSetDemo {
 		names.add("Katherine");
 		names.add("Juliet");
 		names.add("Romeo");
-		names.writeOut();
+		System.out.println(names.getTableLength());
+		names.writeAllOut();
 		System.out.println();
 
 		System.out.println(names.size());
 		System.out.println(names.contains("Romeo"));
+
 
 		 names.remove("Romeo");
 		 System.out.println(names.contains("Romeo"));

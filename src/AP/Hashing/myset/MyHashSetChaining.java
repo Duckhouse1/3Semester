@@ -10,11 +10,13 @@ public class MyHashSetChaining<E> implements MySet<E> {
     private Node<E>[] table;
 
     public MyHashSetChaining(int bucketsLength) {
-        table = (Node<E>[])new Node[bucketsLength];
+        table = (Node<E>[]) new Node[bucketsLength];
         size = 0;
     }
 
-    /** Hash function */
+    /**
+     * Hash function
+     */
     private int hash(int hashCode) {
         if (hashCode < 0) {
             hashCode = -hashCode;
@@ -22,14 +24,16 @@ public class MyHashSetChaining<E> implements MySet<E> {
         return hashCode % table.length;
     }
 
-    @Override /** Remove all elements from this set */
+    @Override
+    /** Remove all elements from this set */
     public void clear() {
         Node<E>[] clearGTable = new Node[table.length];
         size = 0;
         table = clearGTable;
     }
 
-    @Override /** Return true if the element is in the set */
+    @Override
+    /** Return true if the element is in the set */
     public boolean contains(E e) {
         int bucketIndex = hash(e.hashCode());
         Node<E> current = table[bucketIndex];
@@ -44,7 +48,8 @@ public class MyHashSetChaining<E> implements MySet<E> {
         return found;
     }
 
-    @Override /** Add an element to the set */
+    @Override
+    /** Add an element to the set */
     public boolean add(E e) {
         int bucketIndex = hash(e.hashCode());
         Node<E> current = table[bucketIndex];
@@ -63,21 +68,23 @@ public class MyHashSetChaining<E> implements MySet<E> {
             newNode.next = table[bucketIndex];
             table[bucketIndex] = newNode;
             size++;
+            reHash();
         }
         return !found;
     }
 
-    @Override /** Remove the element from the set */
+    @Override
+    /** Remove the element from the set */
     public boolean remove(E e) {
         int bucketindex = hash(e.hashCode());
         Node<E> current = table[bucketindex];
         Node<E> prev = null;
         boolean found = false;
-        if (!contains(e)){
+        if (!contains(e)) {
             return false;
         } else {
-            while (!found && current != null){
-                if (current.data.equals(e)){
+            while (!found && current != null) {
+                if (current.data.equals(e)) {
                     found = true;
                 } else {
                     prev = current;
@@ -88,23 +95,41 @@ public class MyHashSetChaining<E> implements MySet<E> {
                 if (prev != null) {
                     prev.next = current.next;
                     current = null;
-                    size--;
+
                 } else {
                     table[bucketindex] = current.next;
                     current = null;
-                    size--;
+
                 }
+                size--;
             }
         }
         return found;
     }
 
-    @Override /** Return true if the set contains no elements */
+    public void reHash() {
+        if (( (double) size / table.length) > 0.75) {
+            Node<E>[] oldList = table;
+            table = new Node[oldList.length * 2];
+            clear();
+            for (int i = 0; i < oldList.length; i++) {
+                Node<E> node = oldList[i];
+                while (node != null) {
+                    add(node.data);
+                    node = node.next;
+                }
+            }
+        }
+    }
+
+    @Override
+    /** Return true if the set contains no elements */
     public boolean isEmpty() {
         return size == 0;
     }
 
-    @Override /** Return the number of elements in the set */
+    @Override
+    /** Return the number of elements in the set */
     public int size() {
         return size;
     }
@@ -124,7 +149,32 @@ public class MyHashSetChaining<E> implements MySet<E> {
         }
     }
 
-   private class Node<E>{
+    void writeAllOut() {
+        for (int i = 0; i < table.length; i++) {
+            Node<E> temp = table[i];
+            // Print the index
+            System.out.print(i + "\t");
+
+            // If the bucket is not empty, print its elements
+            if (temp != null) {
+                while (temp != null) {
+                    System.out.print(temp.data + "\t");
+                    temp = temp.next;
+                }
+            } else {
+                // If the bucket is empty, print "null"
+                System.out.print("null");
+            }
+
+            // Move to the next line after printing the bucket
+            System.out.println();
+        }
+    }
+
+    public int getTableLength(){
+        return table.length;
+    }
+    private class Node<E> {
         public E data;
         public Node<E> next;
     }
