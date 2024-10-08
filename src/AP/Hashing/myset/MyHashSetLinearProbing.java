@@ -91,7 +91,7 @@ public class MyHashSetLinearProbing<E> implements MySet<E> {
      * element of this set
      */
     public boolean remove(E e) {
-        // TODO
+
         return false;
     }
 
