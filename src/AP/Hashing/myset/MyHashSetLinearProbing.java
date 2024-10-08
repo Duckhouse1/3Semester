@@ -63,8 +63,7 @@ public class MyHashSetLinearProbing<E> implements MySet<E> {
         boolean availableIndex = false;
         if (table[bucketIndex] == null || table[bucketIndex] == DELETED) {
             availableIndex = true;
-            E newObject = e;
-            table[bucketIndex] = newObject;
+            table[bucketIndex] = e;
             size++;
             return availableIndex;
         } else {
