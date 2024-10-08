@@ -1,13 +1,13 @@
 package AP.Hashing.afleveringstuderende;
 
-public class DictionaryDoubleHashing <K, V> implements Dictionary<K, V> {
-    private Entry<K,V>[] table;
+public class DictionaryDoubleHashing<K, V> implements Dictionary<K, V> {
+    private Entry<K, V>[] table;
     private int size;
 
-   private final Entry DELETED = new Entry(null,null);
+    private final Entry DELETED = new Entry(null, null);
 
     public DictionaryDoubleHashing(int length) {
-        table =  new Entry[length];
+        table = new Entry[length];
         size = 0;
     }
 
@@ -17,8 +17,8 @@ public class DictionaryDoubleHashing <K, V> implements Dictionary<K, V> {
         int hashCode = key.hashCode();
         boolean found = false;
         int counter = 0;
-        while (!found && counter <= table.length){
-            if (table[hashCode].key.equals(key)){
+        while (!found && counter <= table.length) {
+            if (table[hashCode].key.equals(key)) {
                 found = true;
                 return table[hashCode].value;
             } else {
@@ -38,27 +38,22 @@ public class DictionaryDoubleHashing <K, V> implements Dictionary<K, V> {
     public V put(K key, V value) {
         int hashCode = key.hashCode();
         boolean availableSpot = false;
-        Entry newEntry = new Entry<>(key,value);
-        while (!availableSpot && table[hashCode] != null || table[hashCode] != DELETED){
-            if (table[hashCode].key.equals(key)){
-                V oldValue = table[hashCode].value;
-                table[hashCode] = newEntry;
-                return oldValue;
+        Entry newEntry = new Entry<>(key, value);
+        int offSetCounter = 1;
+        while (!availableSpot && table[hashCode] != null && table[hashCode] != DELETED && offSetCounter < table.length) {
+            int offSet = 7 - ((int) key % 7);
+            hashCode = hashCode + (offSetCounter * offSet);
+            if (hashCode >= table.length) {
+                hashCode %= table.length;
+            }
+            if (table[hashCode] == null || table[hashCode] == DELETED) {
+                hashCode = hashCode;
+                availableSpot = true;
             } else {
-                int offSet = 7 - ((int) key % 7);
-                for (int i = 1; i < table.length; i++) {
-                    int currentIndex = hashCode + (i*offSet);
-                    if (currentIndex >= table.length){
-                        currentIndex %= table.length;
-                    }
-                    if (table[currentIndex] == null || table[currentIndex] == DELETED){
-                        hashCode = currentIndex;
-                        availableSpot = true;
-                    }
-                }
+                offSetCounter++;
             }
         }
-        if (table[hashCode] == null || table[hashCode] == DELETED){
+        if (table[hashCode] == null || table[hashCode] == DELETED) {
             table[hashCode] = newEntry;
             size++;
 
@@ -68,7 +63,26 @@ public class DictionaryDoubleHashing <K, V> implements Dictionary<K, V> {
 
     @Override
     public V remove(K key) {
-       //TODO
+        //TODO
+        int hashCode = key.hashCode();
+        boolean contains = true;
+        while (table[hashCode].key != key && contains) {
+            int offSet = 7 - ((int) key % 7);
+            for (int i = 1; i <= table.length; i++) {
+                hashCode = hashCode + (i * offSet);
+                if (hashCode >= table.length) {
+                    hashCode %= table.length;
+                }
+                if (i == table.length - 1) {
+                    contains = false;
+                }
+            }
+        }
+        if (contains) {
+            V oldValue = table[hashCode].value;
+            table[hashCode] = DELETED;
+            return oldValue;
+        }
         return null;
     }
 
@@ -85,7 +99,7 @@ public class DictionaryDoubleHashing <K, V> implements Dictionary<K, V> {
         }
     }
 
-    public static class Entry<K,V>{
+    public static class Entry<K, V> {
         private K key;
         private V value;
 
@@ -101,8 +115,9 @@ public class DictionaryDoubleHashing <K, V> implements Dictionary<K, V> {
         public V getValue() {
             return value;
         }
-        public String toString(){
-            return "(" +key + " , " + value + ")";
+
+        public String toString() {
+            return "(" + key + " , " + value + ")";
         }
     }
 }
