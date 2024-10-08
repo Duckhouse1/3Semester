@@ -56,14 +56,13 @@ public class DictionaryDoubleHashing<K, V> implements Dictionary<K, V> {
         if (table[hashCode] == null || table[hashCode] == DELETED) {
             table[hashCode] = newEntry;
             size++;
-
+            rehash();
         }
         return null;
     }
 
     @Override
     public V remove(K key) {
-        //TODO
         int hashCode = key.hashCode();
         boolean contains = true;
         while (table[hashCode].key != key && contains) {
@@ -81,9 +80,25 @@ public class DictionaryDoubleHashing<K, V> implements Dictionary<K, V> {
         if (contains) {
             V oldValue = table[hashCode].value;
             table[hashCode] = DELETED;
+            size--;
             return oldValue;
         }
         return null;
+    }
+
+    public void rehash() {
+        if (((double) size / table.length) >= 0.5) {
+            Entry<K, V>[] oldList = table;
+            table = new Entry[(table.length *2) + 1];
+            size = 0;
+            for (int i = 0; i < oldList.length; i++) {
+                if (oldList[i] != null) {
+                    K entryKey = oldList[i].getKey();
+                    V entryValue = oldList[i].getValue();
+                    put(entryKey, entryValue);
+                }
+            }
+        }
     }
 
     @Override
