@@ -27,9 +27,9 @@ public class MyHashSetChaining<E> implements MySet<E> {
     @Override
     /** Remove all elements from this set */
     public void clear() {
-        Node<E>[] clearGTable = new Node[table.length];
+        Node<E>[] clearTable = new Node[table.length];
         size = 0;
-        table = clearGTable;
+        table = clearTable;
     }
 
     @Override
@@ -108,7 +108,7 @@ public class MyHashSetChaining<E> implements MySet<E> {
     }
 
     public void reHash() {
-        if (( (double) size / table.length) > 0.75) {
+        if (((double) size / table.length) > 0.75) {
             Node<E>[] oldList = table;
             table = new Node[oldList.length * 2];
             clear();
@@ -171,9 +171,10 @@ public class MyHashSetChaining<E> implements MySet<E> {
         }
     }
 
-    public int getTableLength(){
+    public int getTableLength() {
         return table.length;
     }
+
     private class Node<E> {
         public E data;
         public Node<E> next;
