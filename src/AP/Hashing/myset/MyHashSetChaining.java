@@ -111,7 +111,6 @@ public class MyHashSetChaining<E> implements MySet<E> {
         if (((double) size / table.length) > 0.75) {
             Node<E>[] oldList = table;
             table = new Node[oldList.length * 2];
-            clear();
             for (int i = 0; i < oldList.length; i++) {
                 Node<E> node = oldList[i];
                 while (node != null) {
