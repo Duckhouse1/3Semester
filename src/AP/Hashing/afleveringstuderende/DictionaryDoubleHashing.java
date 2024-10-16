@@ -42,12 +42,11 @@ public class DictionaryDoubleHashing<K, V> implements Dictionary<K, V> {
         int offSetCounter = 1;
         while (!availableSpot && table[hashCode] != null && table[hashCode] != DELETED && offSetCounter < table.length) {
             int offSet = 7 - ((int) key % 7);
-            hashCode = hashCode + (offSetCounter * offSet);
+            hashCode += (offSetCounter * offSet);
             if (hashCode >= table.length) {
                 hashCode %= table.length;
             }
             if (table[hashCode] == null || table[hashCode] == DELETED) {
-                hashCode = hashCode;
                 availableSpot = true;
             } else {
                 offSetCounter++;
