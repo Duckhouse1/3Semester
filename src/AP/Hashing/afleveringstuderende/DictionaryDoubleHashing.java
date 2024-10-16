@@ -114,7 +114,7 @@ public class DictionaryDoubleHashing<K, V> implements Dictionary<K, V> {
         }
     }
 
-    public static class Entry<K, V> {
+    private class Entry<K, V> {
         private K key;
         private V value;
 
