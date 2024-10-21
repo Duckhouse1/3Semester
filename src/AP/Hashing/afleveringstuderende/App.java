@@ -7,14 +7,18 @@ public class App {
         doubleHashing.put(1,"Alex");
         doubleHashing.put(8,"Clemen");
         doubleHashing.put(5,"Ras");
+        System.out.println(doubleHashing.get(8));
         System.out.println("Før reHash");
         doubleHashing.writeOut();
         doubleHashing.put(3,"Mint");
         doubleHashing.put(4,"Mikkel");
         doubleHashing.put(9,"Taus");
         doubleHashing.put(8,"Kasper");
+        doubleHashing.put(9,"David");
         System.out.println("Efter reHash");
         doubleHashing.writeOut();
+        System.out.println(doubleHashing.get(9));
+
 
         System.out.println("Sletter elementerne 8 , 3 og 4");
         doubleHashing.remove(8);
