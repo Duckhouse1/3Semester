@@ -8,6 +8,7 @@ public class DictionaryHashMap<K, V> implements Dictionary<K, V> {
     private Map<K, V>[] tabel;
     private static int N = 13;
     private int size = 0;
+
     /**
      * HashingMap constructor comment.
      */
@@ -19,14 +20,11 @@ public class DictionaryHashMap<K, V> implements Dictionary<K, V> {
         }
     }
 
+
     @Override
     public V get(K key) {
-        V element = null;
         int bucketIndex = key.hashCode();
-        if (tabel[bucketIndex].containsKey(key)){
-            return tabel[bucketIndex].get(key);
-        }
-        return element;
+        return tabel[bucketIndex].get(key);
     }
 
     @Override
@@ -37,12 +35,10 @@ public class DictionaryHashMap<K, V> implements Dictionary<K, V> {
     @Override
     public V put(K key, V value) {
         int hashCode = key.hashCode();
-        if (tabel[hashCode].containsKey(key)){
-            V oldValue = tabel[hashCode].get(key);
-            tabel[hashCode].replace(key,value);
-            return oldValue;
+        if (tabel[hashCode].containsKey(key)) {
+            return tabel[hashCode].replace(key, value);
         } else {
-            tabel[hashCode].put(key,value);
+            tabel[hashCode].put(key, value);
             size++;
         }
         return null;
@@ -51,7 +47,7 @@ public class DictionaryHashMap<K, V> implements Dictionary<K, V> {
     @Override
     public V remove(K key) {
         int hashCode = key.hashCode();
-        if (tabel[hashCode].containsKey(key)){
+        if (tabel[hashCode].containsKey(key)) {
             size--;
             return tabel[hashCode].remove(key);
         }

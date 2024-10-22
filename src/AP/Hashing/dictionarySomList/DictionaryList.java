@@ -22,7 +22,7 @@ public class DictionaryList<K, V> implements Dictionary<K, V> {
 
     @Override
     public V get(K key) {
-        int bucketIndex = key.hashCode();
+        int bucketIndex = key.hashCode() % N;
         for (int i = 0; i < tabel[bucketIndex].size(); i++) {
             if (tabel[bucketIndex].get(i).getKey().equals(key)) {
                 return tabel[bucketIndex].get(i).value;
@@ -38,7 +38,7 @@ public class DictionaryList<K, V> implements Dictionary<K, V> {
 
     @Override
     public V put(K key, V value) {
-        int hashCode = key.hashCode();
+        int hashCode = key.hashCode() % N;
         Item newItem = new Item(key, value);
         for (int i = 0; i < tabel[hashCode].size(); i++) {
             if (tabel[hashCode].get(i).key.equals(key)){
@@ -55,7 +55,7 @@ public class DictionaryList<K, V> implements Dictionary<K, V> {
 
     @Override
     public V remove(K key) {
-        int hashCode = key.hashCode();
+        int hashCode = key.hashCode() % N;
             for (int i = 0; i < tabel[hashCode].size(); i++) {
                 if (tabel[hashCode].get(i).key.equals(key)){
                     V oldValue = tabel[hashCode].get(i).value;
