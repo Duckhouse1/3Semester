@@ -25,17 +25,17 @@ public class app {
 
         graph.printGraph();
 
-//        graph.removeVertex(15);
-        graph.removeEdge(38,123);
-        System.out.println("Fjernet edge mellem 38 og 123");
+        graph.removeEdge(15,66);
+        System.out.println("Fjernet edge mellem 15 og 66");
         graph.printGraph();
+        System.out.println("alle Edges:");
         System.out.println(graph.edges());
 
-        System.out.println("Alle edges til 123:");
-        System.out.println(graph.incidentEdges(123));
-        System.out.println(graph.areAdjacent(6,123));
+        System.out.println("Alle edges til 66:");
+        System.out.println(graph.incidentEdges(66));
+        System.out.println(graph.areAdjacent(15,123));
         System.out.println(graph.neighbors(66));
-
+        System.out.println(graph.degree(66));
 
 
 

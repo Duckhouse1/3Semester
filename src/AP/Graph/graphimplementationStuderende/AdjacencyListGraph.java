@@ -77,19 +77,21 @@ public class AdjacencyListGraph<V> implements Graph<V> {
     @Override
     /** Return the degree for a specified vertex */
     public int degree(V v) {
-        //TODO
-        return -1;
+        return edges.get(v).size();
     }
 
     @Override
 
     public boolean areAdjacent(V v, V u) {
-        List<Edge<V>> VEdgelist = edges.get(v);
+        List<Edge<V>> edgelistForV = edges.get(v);
         int index = 0;
-        Edge<V> current = VEdgelist.get(index);
+        Edge<V> current = null;
         boolean found = false;
-        while (!found && index < VEdgelist.size()){
-            if (current.getU().equals(u) || current.getU().equals(v)) {
+        while (!found && index < edgelistForV.size()){
+            current = edgelistForV.get(index);
+            boolean checkU = current.getU().equals(u);
+            boolean checkV = current.getV().equals(u);
+            if (checkU || checkV) {
                 found = true;
             } else {
                 index++;
@@ -125,17 +127,19 @@ public class AdjacencyListGraph<V> implements Graph<V> {
      * Pre: Before addition, the vertices are in the graph, and the edge is not in the graph.
      */
     public void addEdge(V v, V u) {
-        Edge<V> newEdge = new Edge<>(v, u, 0);
-        edges.get(v).add(newEdge);
-        edges.get(u).add(newEdge);
+        Edge<V> newEdgeV = new Edge<>(v, u, 0);
+        Edge<V> newEdgeU = new Edge<>(u, v, 0);
+        edges.get(v).add(newEdgeV);
+        edges.get(u).add(newEdgeU);
     }
 
     @Override
     /** Add an edge to the graph */
     public void addEdge(V v, V u, int e) {
-        Edge<V> newEdge = new Edge<>(v, u, e);
-        edges.get(v).add(newEdge);
-        edges.get(u).add(newEdge);
+        Edge<V> newEdgeV = new Edge<>(v, u, e);
+        Edge<V> newEdgeU = new Edge<>(u, v, e);
+        edges.get(v).add(newEdgeV);
+        edges.get(u).add(newEdgeU);
     }
 
 
@@ -146,6 +150,8 @@ public class AdjacencyListGraph<V> implements Graph<V> {
      */
     public void removeVertex(V v) {
         //TODO
+        List<Edge<V>> edgeList = edges.get(v);
+
     }
 
     private void removeVertex(V v, List<Edge<V>> list) {
@@ -161,21 +167,24 @@ public class AdjacencyListGraph<V> implements Graph<V> {
     public void removeEdge(V v, V u) {
         List<Edge<V>> samletEdgeListe = new ArrayList<>(edges.get(v));
         samletEdgeListe.addAll(edges.get(u));
-        Edge<V> toRemove = null;
+        Edge<V> toRemoveV = null;
+        Edge<V> toRemoveU = null;
         int index = 0;
         boolean found = false;
+        int antalfundet = 0;
         while (!found && index <= edges.get(v).size()) {
-            boolean checkFirst = edges.get(v).get(index).getU().equals(u) && samletEdgeListe.get(index).getV().equals(v);
+            boolean checkFirst = samletEdgeListe.get(index).getU().equals(u) && samletEdgeListe.get(index).getV().equals(v);
             boolean checkSecond = samletEdgeListe.get(index).getU().equals(v) && samletEdgeListe.get(index).getV().equals(u);
             if (checkFirst || checkSecond) {
-                toRemove = samletEdgeListe.get(index);
+                toRemoveV = samletEdgeListe.get(index);
+                toRemoveU = new Edge<>(toRemoveV.getU(), toRemoveV.getV(), toRemoveV.getElement());
                 found = true;
             } else {
                 index++;
             }
         }
-        edges.get(u).remove(toRemove);
-        edges.get(v).remove(toRemove);
+        edges.get(v).remove(toRemoveV);
+        edges.get(u).remove(toRemoveU);
     }
 
 
