@@ -1,5 +1,6 @@
 package AP.Graph.graphimplementationStuderende;
 
+
 import java.util.*;
 
 public class AdjacencyListGraph<V> implements Graph<V> {
@@ -43,7 +44,6 @@ public class AdjacencyListGraph<V> implements Graph<V> {
     @Override
     /** Return the edges in the graph */
     public List<Edge<V>> edges() {
-        //TODO
         List<Edge<V>> edgesToReturn = new ArrayList<>();
         for (List<Edge<V>> e : edges.values()) {
             edgesToReturn.addAll(e);
@@ -55,16 +55,23 @@ public class AdjacencyListGraph<V> implements Graph<V> {
     @Override
     /** Return the neighbors of the specified vertex */
     public List<V> neighbors(V v) {
-        // TODO
-        return null;
+        List<V> neighbors = new ArrayList<>();
+        List<Edge<V>> theEdgesToV = edges.get(v);
+        for (Edge<V> edge : theEdgesToV){
+            if (!edge.getU().equals(v)){
+                neighbors.add(edge.getU());
+            } else if (!edge.getV().equals(v)){
+                neighbors.add(edge.getV());
+            }
+        }
+        return neighbors;
     }
 
 
     @Override
     /** Return the incident edges of vertex v */
     public List<Edge<V>> incidentEdges(V v) {
-        //TODO
-        return null;
+        return edges.get(v);
     }
 
     @Override
@@ -77,8 +84,18 @@ public class AdjacencyListGraph<V> implements Graph<V> {
     @Override
 
     public boolean areAdjacent(V v, V u) {
-        //TODO
-        return false;
+        List<Edge<V>> VEdgelist = edges.get(v);
+        int index = 0;
+        Edge<V> current = VEdgelist.get(index);
+        boolean found = false;
+        while (!found && index < VEdgelist.size()){
+            if (current.getU().equals(u) || current.getU().equals(v)) {
+                found = true;
+            } else {
+                index++;
+            }
+        }
+        return found;
     }
 
 
@@ -98,8 +115,8 @@ public class AdjacencyListGraph<V> implements Graph<V> {
      * Add a vertex to the graph.
      * Pre: The vertex is not in the graph before this addition.     */
     public void addVertex(V v) {
-        //TODO
         vertices.add(v);
+        edges.put(v, new ArrayList<Edge<V>>());
     }
 
     @Override
@@ -108,7 +125,6 @@ public class AdjacencyListGraph<V> implements Graph<V> {
      * Pre: Before addition, the vertices are in the graph, and the edge is not in the graph.
      */
     public void addEdge(V v, V u) {
-        //TODO
         Edge<V> newEdge = new Edge<>(v, u, 0);
         edges.get(v).add(newEdge);
         edges.get(u).add(newEdge);
@@ -117,11 +133,9 @@ public class AdjacencyListGraph<V> implements Graph<V> {
     @Override
     /** Add an edge to the graph */
     public void addEdge(V v, V u, int e) {
-        //TODO
         Edge<V> newEdge = new Edge<>(v, u, e);
         edges.get(v).add(newEdge);
         edges.get(u).add(newEdge);
-
     }
 
 
@@ -145,8 +159,23 @@ public class AdjacencyListGraph<V> implements Graph<V> {
      *   and The graph has an edge between the vertices.
      */
     public void removeEdge(V v, V u) {
-        //TODO
-
+        List<Edge<V>> samletEdgeListe = new ArrayList<>(edges.get(v));
+        samletEdgeListe.addAll(edges.get(u));
+        Edge<V> toRemove = null;
+        int index = 0;
+        boolean found = false;
+        while (!found && index <= edges.get(v).size()) {
+            boolean checkFirst = edges.get(v).get(index).getU().equals(u) && samletEdgeListe.get(index).getV().equals(v);
+            boolean checkSecond = samletEdgeListe.get(index).getU().equals(v) && samletEdgeListe.get(index).getV().equals(u);
+            if (checkFirst || checkSecond) {
+                toRemove = samletEdgeListe.get(index);
+                found = true;
+            } else {
+                index++;
+            }
+        }
+        edges.get(u).remove(toRemove);
+        edges.get(v).remove(toRemove);
     }
 
 
