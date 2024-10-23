@@ -173,6 +173,8 @@ public class EdgeListGraph<V> implements Graph<V> {
             e = edges.get(index);
             if (e.getV().equals(v) && e.getU().equals(u) || e.getV().equals(u) && e.getU().equals(v)) {
                 found = true;
+            } else {
+                index++;
             }
         }
         edges.remove(e);
