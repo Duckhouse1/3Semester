@@ -3,7 +3,7 @@ package AP.Graph.graphimplementationStuderende;
 public class app {
     public static void main(String[] args) {
         AdjacencyListGraph graph = new AdjacencyListGraph();
-
+//        AdjacencyMatrixGraph graph = new AdjacencyMatrixGraph<>();
 //        EdgeListGraph graph = new EdgeListGraph<>();
         graph.addVertex(15);
         graph.addVertex(38);

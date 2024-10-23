@@ -55,8 +55,18 @@ public class AdjacencyMatrixGraph<V> implements Graph<V> {
      * Pre: The vertex is in the graph.
      */
     public List<V> neighbors(V v) {
-        // TODO
-        return null;
+        List<V> neighbors = new ArrayList<>();
+        int index = vertices.get(v);
+        for (int i = 0; i < matrix[index].length; i++) {
+            if (matrix[index][i] != null){
+                if (!matrix[index][i].getU().equals(v)){
+                    neighbors.add(matrix[index][i].getU());
+                } else {
+                    neighbors.add(matrix[index][i].getV());
+                }
+            }
+        }
+        return neighbors;
     }
 
 
@@ -66,8 +76,14 @@ public class AdjacencyMatrixGraph<V> implements Graph<V> {
      * Pre: The vertex is in the graph.
      */
     public List<Edge<V>> incidentEdges(V v) {
-        //TODO
-        return null;
+        List<Edge<V>> incidentEdges = new ArrayList<>();
+        int indexValue = vertices.get(v);
+        for (int i = 0; i < matrix[indexValue].length; i++) {
+            if (matrix[indexValue][i] != null){
+                incidentEdges.add(matrix[indexValue][i]);
+            }
+        }
+        return incidentEdges;
     }
 
     @Override
@@ -76,8 +92,14 @@ public class AdjacencyMatrixGraph<V> implements Graph<V> {
      * Pre: The vertex is in the graph.
      */
     public int degree(V v) {
-        // TODO
-        return -1;
+        int degreeCounter = 0;
+        int index = vertices.get(v);
+        for (int i = 0; i < matrix[index].length; i++) {
+            if (matrix[index][i] != null){
+                degreeCounter++;
+            }
+        }
+        return degreeCounter;
 
     }
 
@@ -87,8 +109,7 @@ public class AdjacencyMatrixGraph<V> implements Graph<V> {
      * Pre: The vertices are vertices in the graph.
      */
     public boolean areAdjacent(V v, V u) {
-        // TODO
-        return false;
+        return matrix[vertices.get(v)][vertices.get(u)] != null;
     }
 
     @Override

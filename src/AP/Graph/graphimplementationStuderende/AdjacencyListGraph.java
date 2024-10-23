@@ -71,7 +71,7 @@ public class AdjacencyListGraph<V> implements Graph<V> {
     @Override
     /** Return the incident edges of vertex v */
     public List<Edge<V>> incidentEdges(V v) {
-        return edges.get(v);
+        return new ArrayList<>(edges.get(v));
     }
 
     @Override
