@@ -37,6 +37,9 @@ public class app {
         System.out.println(graph.neighbors(66));
         System.out.println(graph.degree(66));
 
+        System.out.println("Fjerne knuden 66");
+        graph.removeVertex(66);
+        graph.printGraph();
 
 
 

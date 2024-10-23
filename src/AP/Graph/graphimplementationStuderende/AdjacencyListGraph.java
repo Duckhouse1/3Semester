@@ -149,13 +149,18 @@ public class AdjacencyListGraph<V> implements Graph<V> {
      * Pre: The vertex is in the graph
      */
     public void removeVertex(V v) {
-        //TODO
-        List<Edge<V>> edgeList = edges.get(v);
-
+        for (List<Edge<V>> list : edges.values()){
+            removeVertex(v,list);
+        }
+        vertices.remove(v);
     }
 
     private void removeVertex(V v, List<Edge<V>> list) {
-        //TODO
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i).getV().equals(v) || list.get(i).getU().equals(v)){
+                list.remove(list.get(i));
+            }
+        }
     }
 
     @Override
@@ -171,7 +176,6 @@ public class AdjacencyListGraph<V> implements Graph<V> {
         Edge<V> toRemoveU = null;
         int index = 0;
         boolean found = false;
-        int antalfundet = 0;
         while (!found && index <= edges.get(v).size()) {
             boolean checkFirst = samletEdgeListe.get(index).getU().equals(u) && samletEdgeListe.get(index).getV().equals(v);
             boolean checkSecond = samletEdgeListe.get(index).getU().equals(v) && samletEdgeListe.get(index).getV().equals(u);
