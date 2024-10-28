@@ -142,6 +142,7 @@ public class AdjacencyMatrixGraph<V> implements Graph<V> {
         // TODO
         Edge<V> newEdge = new Edge<>(v,u,0);
         edges.add(newEdge);
+        matrix[vertices.get(v)][vertices.get(u)] = newEdge;
     }
 
     @Override
@@ -185,7 +186,7 @@ public class AdjacencyMatrixGraph<V> implements Graph<V> {
 
         matrixGraph.addEdge(20,10,8);
         matrixGraph.addEdge(1,10,12);
-
+        matrixGraph.addEdge(1,20,4);
 
         matrixGraph.printGraph();
     }
