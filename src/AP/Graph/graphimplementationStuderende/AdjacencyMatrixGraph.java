@@ -115,7 +115,12 @@ public class AdjacencyMatrixGraph<V> implements Graph<V> {
     @Override
     /** Print the vertices and the edges. */
     public void printGraph() {
-        // TODO
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix[i].length; j++) {
+                System.out.print(matrix[i][j] +"|");
+            }
+            System.out.println();
+        }
     }
 
 
@@ -124,7 +129,8 @@ public class AdjacencyMatrixGraph<V> implements Graph<V> {
      * Add a vertex to the graph.
      * Pre: The vertex is not in the graph before this addition.     */
     public void addVertex(V v) {
-        // TODO
+        vertices.put(v,vertexNr);
+        vertexNr++;
     }
 
     @Override
@@ -134,6 +140,8 @@ public class AdjacencyMatrixGraph<V> implements Graph<V> {
      */
     public void addEdge(V v, V u) {
         // TODO
+        Edge<V> newEdge = new Edge<>(v,u,0);
+        edges.add(newEdge);
     }
 
     @Override
@@ -143,7 +151,9 @@ public class AdjacencyMatrixGraph<V> implements Graph<V> {
      * Pre: The weight is not negative.
      */
     public void addEdge(V v, V u, int e) {
-        //TODO
+        Edge<V> newEdge = new Edge<>(v,u,e);
+        edges.add(newEdge);
+        matrix[vertices.get(v)][vertices.get(u)] = newEdge;
     }
 
     @Override
@@ -166,7 +176,19 @@ public class AdjacencyMatrixGraph<V> implements Graph<V> {
 
     }
 
+    public static void main(String[] args) {
+        AdjacencyMatrixGraph matrixGraph = new AdjacencyMatrixGraph();
 
+        matrixGraph.addVertex(20);
+        matrixGraph.addVertex(10);
+        matrixGraph.addVertex(1);
+
+        matrixGraph.addEdge(20,10,8);
+        matrixGraph.addEdge(1,10,12);
+
+
+        matrixGraph.printGraph();
+    }
 
 
 }
