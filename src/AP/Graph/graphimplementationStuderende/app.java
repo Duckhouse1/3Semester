@@ -28,6 +28,7 @@ public class app {
         graph.removeEdge(15,66);
         System.out.println("Fjernet edge mellem 15 og 66");
         graph.printGraph();
+        System.out.println(graph.numEdges());
         System.out.println("alle Edges:");
         System.out.println(graph.edges());
 

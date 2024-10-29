@@ -32,7 +32,7 @@ public class AdjacencyListGraph<V> implements Graph<V> {
         for (List<Edge<V>> list : edges.values()) {
             size += list.size();
         }
-        return size / 2;
+        return size / 2; //Dividere med 2 fordi jeg tilføjer edgen 2 gange
     }
 
     @Override
@@ -56,7 +56,7 @@ public class AdjacencyListGraph<V> implements Graph<V> {
     /** Return the neighbors of the specified vertex */
     public List<V> neighbors(V v) {
         List<V> neighbors = new ArrayList<>();
-        List<Edge<V>> theEdgesToV = edges.get(v);
+        List<Edge<V>> theEdgesToV = edges.get(v); //<-- her kunne man også have løbet igennem vertixes istedet
         for (Edge<V> edge : theEdgesToV){
             if (!edge.getU().equals(v)){
                 neighbors.add(edge.getU());
@@ -83,21 +83,22 @@ public class AdjacencyListGraph<V> implements Graph<V> {
     @Override
 
     public boolean areAdjacent(V v, V u) {
-        List<Edge<V>> edgelistForV = edges.get(v);
-        int index = 0;
-        Edge<V> current = null;
-        boolean found = false;
-        while (!found && index < edgelistForV.size()){
-            current = edgelistForV.get(index);
-            boolean checkU = current.getU().equals(u);
-            boolean checkV = current.getV().equals(u);
-            if (checkU || checkV) {
-                found = true;
-            } else {
-                index++;
-            }
-        }
-        return found;
+//        List<Edge<V>> edgelistForV = edges.get(v);
+//        int index = 0;
+//        Edge<V> current = null;
+//        boolean found = false;
+//        while (!found && index < edgelistForV.size()){
+//            current = edgelistForV.get(index);
+//            boolean checkU = current.getU().equals(u);
+//            boolean checkV = current.getV().equals(u);
+//            if (checkU || checkV) {
+//                found = true;
+//            } else {
+//                index++;
+//            }
+//        }
+//        return found;
+        return neighbors(v).contains(u);
     }
 
 

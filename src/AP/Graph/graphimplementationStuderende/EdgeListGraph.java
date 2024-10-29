@@ -155,7 +155,7 @@ public class EdgeListGraph<V> implements Graph<V> {
                 edgesToRemove.add(e);
             }
         }
-        edges.removeAll(edgesToRemove);
+        edges.remove(edgesToRemove);
         vertices.remove(v);
     }
 
