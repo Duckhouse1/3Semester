@@ -59,7 +59,7 @@ public class GraphAlgortihms {
      * Returnerer om der er en vej fra v1 til v2 i graph
      */
     public static <V> boolean isPath(Graph<V> graph, V v1, V v2) {
-        return bfs(graph,v1).contains(v2);
+        return bfs(graph,v1).contains(v2); //Ikke optimal måde da den løber alle kanter igennem, selvom den har fundet en vej
     }
 
     /**
