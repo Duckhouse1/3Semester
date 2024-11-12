@@ -1,6 +1,7 @@
 package AP.Graph.grafalgoritmer;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
@@ -31,7 +32,7 @@ public class GraphAlgortihms {
          */
     public static <V> List<V> bfs(Graph<V> graph, V v) {
         List<V> besøgte = new ArrayList<>();
-        List<V> knudeKø = new ArrayList<>();
+        List<V> knudeKø = new LinkedList<>();
         knudeKø.add(v);
         while (!knudeKø.isEmpty()){
             V førsteKnude = knudeKø.get(0);
