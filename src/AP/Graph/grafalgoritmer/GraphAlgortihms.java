@@ -59,7 +59,24 @@ public class GraphAlgortihms {
      * Returnerer om der er en vej fra v1 til v2 i graph
      */
     public static <V> boolean isPath(Graph<V> graph, V v1, V v2) {
-        return bfs(graph,v1).contains(v2); //Ikke optimal måde da den løber alle kanter igennem, selvom den har fundet en vej
+        List<V> besøgte = new ArrayList<>();
+        List<V> knudeKø = new ArrayList<>();
+        knudeKø.add(v1);
+        boolean found = false;
+        while (!knudeKø.isEmpty() && !found){
+            V førsteKnude = knudeKø.get(0);
+            knudeKø.remove(førsteKnude);
+            besøgte.add(førsteKnude);
+            for (V naboKnude : graph.neighbors(førsteKnude)){
+                if (naboKnude.equals(v2)){
+                    found = true;
+                }
+                if (!besøgte.contains(naboKnude) && !knudeKø.contains(naboKnude)){
+                    knudeKø.add(naboKnude);
+                }
+            }
+        }
+        return found;
     }
 
     /**
@@ -68,7 +85,18 @@ public class GraphAlgortihms {
      */
     public static <V> Set<Edge> mst(Graph<V> graph) {
         // TODO Opgave 7
-        return null;
+        List<Edge<V>> sorteretEdges = new ArrayList<>(graph.edges());
+        sorteretEdges.sort(new EdgeComparator());
+
+        List<V> vertixes = new ArrayList<>(graph.vertices());
+
+        Set<Edge> edgesForShortest = new HashSet<>();
+
+
+
+
+
+        return edgesForShortest;
     }
 
     public static void main(String[] args) {
@@ -96,5 +124,13 @@ public class GraphAlgortihms {
         System.out.println(bfs(graph,123));
 
         System.out.println(connected(graph));
+        System.out.println(isPath(graph,15,123));
+    }
+    private static class EdgeComparator implements Comparator<Edge>{
+
+        @Override
+        public int compare(Edge o1, Edge o2) {
+            return o1.getElement() - o2.getElement();
+        }
     }
 }
