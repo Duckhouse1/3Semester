@@ -36,7 +36,7 @@ public class MoviesApp {
     }
 
     public static void main(String[] args) throws IOException {
-        List<Movie> movieList = readMovies("movies.txt");
+        List<Movie> movieList = readMovies("C:\\Users\\denni\\OneDrive\\Skrivebord\\3Semester\\src\\AP\\Stream\\filer\\movies.txt");
 //        for (Movie m : movieList) {
 //            System.out.println(m.getTitle());
 //        }
@@ -45,25 +45,24 @@ public class MoviesApp {
         System.out.println("Number of movies: " +movieList.size());
 
         //  The numer of movies starting with "H"
-        // TODO Opgave
+        System.out.println(movieList.stream().filter(m -> m.getTitle().startsWith("H")).count());
 
         // The title of the movies starting with "X"
-        // TODO Opgave
+        System.out.println(movieList.stream().filter(m -> m.getTitle().startsWith("X")).map(title -> title.getTitle()).toList());
 
         // The number of films where the director is also an actor
-        // TODO Opgave
+        System.out.println(movieList.stream().filter(movie -> movie.getActors().contains(movie.getDirectors())).count());
 
         //The number of actors in the film with the most actors
-        // TODO Opgave
+        System.out.println(movieList.stream().mapToInt(movie -> movie.getActors().size()).max());
 
         // The title of the film with the most actors
-        // TODO Opgave
-
+        System.out.println(movieList.stream().reduce((m1,m2) -> m1.getActors().size() > m2.getActors().size() ? m1:m2).map(movie -> movie.getTitle()));
         //Number of films divided by first letter in the film title
         // TODO Opgave
 
         // Number of movies whose title starts with "The "
-        // TODO Opgave
+        System.out.println(movieList.stream().filter(m -> m.getTitle().startsWith("The")).count());
 
 
 //
