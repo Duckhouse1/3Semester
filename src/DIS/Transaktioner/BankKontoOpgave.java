@@ -17,26 +17,45 @@ public class BankKontoOpgave {
         System.out.println("Indtast konto du vil sende til:");
         String kontoTil = inLine.readLine();
         System.out.println("Indtast beløb:");
-        int beløb = inLine.read();
+        int beløb = Integer.parseInt(inLine.readLine());
 
         Connection minConnection = DriverManager.getConnection("jdbc:sqlserver://localhost\\SQLExpress;databaseName=master;user=sa;password=erder1;");
-        Statement statement = minConnection.createStatement();
+        Statement stmtFra = minConnection.createStatement();
+        Statement stmtTil = minConnection.createStatement();
+        Statement stmtUpdate = minConnection.createStatement();
 
+        // Fetching account details
+        ResultSet resultSetRegFra = stmtFra.executeQuery(
+                "SELECT * FROM Konto WHERE regNr = " + regFra + " AND ktoNr = " + kontoFra);
+        ResultSet resultSetRegTil = stmtTil.executeQuery(
+                "SELECT * FROM Konto WHERE regNr = " + regTil + " AND ktoNr = " + kontoTil);
 
-        ResultSet resultSetRegFra = statement.executeQuery("SELECT * FROM Konto K where K.regNr=" + regFra + "and K.ktoNr =" + kontoFra);
+        if (resultSetRegFra.next() && resultSetRegTil.next()) {
+            int saldoFra = resultSetRegFra.getInt("saldo");
+            int saldoTil = resultSetRegTil.getInt("saldo");
 
-        ResultSet resultSetRegTil = statement.executeQuery("SELECT * FROM Konto K where K.regNr=" + regTil +"and K.ktoNr =" + kontoTil);
+            if (beløb <= saldoFra) {
+                int fraKontoNyeBeløb = saldoFra - beløb;
+                int tilKontoNyeBeløb = saldoTil + beløb;
 
-        if (resultSetRegFra != null){
-            if (resultSetRegTil != null){
-                if (beløb >= resultSetRegFra.getInt(4)){
-                    int FraKontoNyeBeløb = resultSetRegFra.getInt(4) - beløb;
-                    int TilKontoNyeBeløb = resultSetRegTil.getInt(4) + beløb;
-                    ResultSet opdaterFraKonto = statement.executeQuery("UPDATE Konto SET saldo ="+ FraKontoNyeBeløb + " WHERE regNr = " + regFra + " AND ktoNr = " + kontoFra);
-                    ResultSet opdaterTilKonto = statement.executeQuery("UPDATE Konto SET saldo ="+ TilKontoNyeBeløb + " WHERE regNr = " + regTil + " AND ktoNr = " + kontoTil);
+                // Updating account balances
+                stmtUpdate.executeUpdate(
+                        "UPDATE Konto SET saldo = " + fraKontoNyeBeløb +
+                                " WHERE regNr = " + regFra + " AND ktoNr = " + kontoFra);
+                stmtUpdate.executeUpdate(
+                        "UPDATE Konto SET saldo = " + tilKontoNyeBeløb +
+                                " WHERE regNr = " + regTil + " AND ktoNr = " + kontoTil);
 
-                }
+                System.out.println("Transaktion gennemført! Der står nu på kontoNr: " + kontoTil + " beløb på: " + tilKontoNyeBeløb);
+            } else {
+                System.out.println("Ikke tilstrækkelig saldo på kontoen.");
             }
+        } else {
+            System.out.println("En eller begge konti blev ikke fundet.");
         }
+        if (resultSetRegFra != null) resultSetRegFra.close();
+        if (resultSetRegTil != null) resultSetRegTil.close();
+        if (minConnection != null) minConnection.close();
     }
 }
+
