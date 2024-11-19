@@ -32,6 +32,8 @@ public class BankKontoOpgave {
                 if (beløb >= resultSetRegFra.getInt(4)){
                     int FraKontoNyeBeløb = resultSetRegFra.getInt(4) - beløb;
                     int TilKontoNyeBeløb = resultSetRegTil.getInt(4) + beløb;
+                    ResultSet opdaterFraKonto = statement.executeQuery("UPDATE Konto SET saldo ="+ FraKontoNyeBeløb + " WHERE regNr = " + regFra + " AND ktoNr = " + kontoFra);
+                    ResultSet opdaterTilKonto = statement.executeQuery("UPDATE Konto SET saldo ="+ TilKontoNyeBeløb + " WHERE regNr = " + regTil + " AND ktoNr = " + kontoTil);
 
                 }
             }
