@@ -15,16 +15,15 @@ public class Exercises1 {
 
         //	Udskriver det største element i listen
         System.out.println(list.stream().max((e1,e2) -> e1.compareTo(e2)));
-
         //	Afgør og udskriver om alle tallene i listen er mindre end 50
-        System.out.println(list.stream().allMatch(e -> e > 50));
+        System.out.println(list.stream().allMatch(e -> e < 50));
         // 	Udskriver antallet af lige tal i listen
         System.out.println(list.stream().filter(e -> e%2 == 0).count());
         //	Udskriver antallet af ulige tal i listen
         System.out.println(list.stream().filter(e -> e%2 == 1).count());
         //  Udskriver
         //      Gennemsnittet af tallene i listen
-        System.out.println(list.stream().mapToDouble(e -> e).average());
+        System.out.println(list.stream().mapToDouble(e -> e).average().orElse(0.0));
         //      Antallet af tallene i listen
         System.out.println(list.stream().count());
         //      Antallet af tallene i listen der er større end gennemsnittet
@@ -32,11 +31,13 @@ public class Exercises1 {
         double average = list.stream().mapToDouble(e -> e).average().orElse(0.0); // Get the average value, defaulting to 0.0 if empty
         System.out.println("Over");
         System.out.println(list.stream().mapToDouble(e -> e).filter(e -> e > average).count());
-        System.out.println("UNder");
+        System.out.println("Under");
         //      Antallet af tallene i listen der er mindre end gennemsnittet
         System.out.println(list.stream().mapToDouble(e -> e).filter(e -> e < average).count());
         //	    Udskriver antallet af gange de forskellige tal forekommer i listen
-        System.out.println();
+        Map<Integer,Long> antalGange = list.stream().collect(Collectors.groupingBy(e -> e, Collectors.counting()));
         //	    Udskriver antallet af gange de forskellige tal forekommer i listen i sorteret orden
+        Map<Integer,Long> antalGangeSorteret = list.stream().collect(Collectors.groupingBy(e -> e,TreeMap::new, Collectors.counting()));
+
     }
 }
