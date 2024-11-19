@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.sql.*;
 
-public class BankKontoOpgave {
+public class BankKontoMedTrans {
     public static void main(String[] args) throws SQLException, IOException {
         BufferedReader inLine = new BufferedReader(new InputStreamReader(System.in));
         System.out.println("Indtast regNr du vil tage fra:");
@@ -21,10 +21,6 @@ public class BankKontoOpgave {
         int beløb = Integer.parseInt(inLine.readLine());
 
         Connection minConnection = DriverManager.getConnection("jdbc:sqlserver://localhost\\SQLExpress;databaseName=master;user=sa;password=erder1;");
-
-        minConnection.setTransactionIsolation(Connection.TRANSACTION_REPEATABLE_READ);
-        // Start transaktion
-        minConnection.setAutoCommit(false);
         //Hver gang man executer en noget query skal den have sin egen statement, ellers lukker de ned før man kan arbejde med dem
         Statement stmtFra = minConnection.createStatement();
         Statement stmtTil = minConnection.createStatement();
@@ -51,26 +47,14 @@ public class BankKontoOpgave {
                                 " WHERE regNr = " + regTil + " AND ktoNr = " + kontoTil);
 
                 System.out.println("Transaktion gennemført! Der står nu på kontoNr: " + kontoTil + " beløb på: " + tilKontoNyeBeløb);
-                // Commit transaktion
-                minConnection.commit();
             } else {
                 System.out.println("Ikke tilstrækkelig saldo på kontoen.");
-                minConnection.rollback(); // Fortryd transaktion
             }
         } else {
             System.out.println("En eller begge konti blev ikke fundet.");
-            minConnection.rollback(); // Fortryd transaktion
         }
-        if (resultSetRegFra != null) {
-            resultSetRegFra.close();
-        }
-        if (resultSetRegTil != null) {
-            resultSetRegTil.close();
-        }
-        if (minConnection != null) {
-            minConnection.setAutoCommit(true); // Tilbage til autocommit
-            minConnection.close();
-        }
+        if (resultSetRegFra != null) resultSetRegFra.close();
+        if (resultSetRegTil != null) resultSetRegTil.close();
+        if (minConnection != null) minConnection.close();
     }
 }
-
