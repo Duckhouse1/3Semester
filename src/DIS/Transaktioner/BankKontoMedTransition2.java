@@ -5,8 +5,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.sql.*;
 
-public class BankKontoOpgave {
-    public static void main(String[] args) throws SQLException, IOException {
+public class BankKontoMedTransition2 {
+    public static void main(String[] args) throws SQLException, IOException, InterruptedException {
         BufferedReader inLine = new BufferedReader(new InputStreamReader(System.in));
         System.out.println("Indtast regNr du vil tage fra:");
         String regFra = inLine.readLine();
@@ -25,7 +25,7 @@ public class BankKontoOpgave {
         minConnection.setTransactionIsolation(Connection.TRANSACTION_REPEATABLE_READ);
         // Start transaktion
         minConnection.setAutoCommit(false);
-        //Hver gang man executer en noget query skal den have sin egen statement, ellers lukker de ned før man kan arbejde med dem
+        //Hver gang man executer en query skal den have sin egen statement, ellers lukker de ned før man kan arbejde med dem
         Statement stmtFra = minConnection.createStatement();
         Statement stmtTil = minConnection.createStatement();
         Statement stmtUpdate = minConnection.createStatement();
@@ -34,7 +34,6 @@ public class BankKontoOpgave {
                 "SELECT * FROM Konto WHERE regNr = " + regFra + " AND ktoNr = " + kontoFra);
         ResultSet resultSetRegTil = stmtTil.executeQuery(
                 "SELECT * FROM Konto WHERE regNr = " + regTil + " AND ktoNr = " + kontoTil);
-
         if (resultSetRegFra.next() && resultSetRegTil.next()) {
             int saldoFra = resultSetRegFra.getInt("saldo");
             int saldoTil = resultSetRegTil.getInt("saldo");
@@ -42,7 +41,7 @@ public class BankKontoOpgave {
             if (beløb <= saldoFra) {
                 int fraKontoNyeBeløb = saldoFra - beløb;
                 int tilKontoNyeBeløb = saldoTil + beløb;
-
+                Thread.sleep(20000);
                 stmtUpdate.executeUpdate(
                         "UPDATE Konto SET saldo = " + fraKontoNyeBeløb +
                                 " WHERE regNr = " + regFra + " AND ktoNr = " + kontoFra);
@@ -51,15 +50,15 @@ public class BankKontoOpgave {
                                 " WHERE regNr = " + regTil + " AND ktoNr = " + kontoTil);
 
                 System.out.println("Transaktion gennemført! Der står nu på kontoNr: " + kontoTil + " beløb på: " + tilKontoNyeBeløb);
-                // Commit transaktion
+
                 minConnection.commit();
             } else {
                 System.out.println("Ikke tilstrækkelig saldo på kontoen.");
-                minConnection.rollback(); // Fortryd transaktion
+                minConnection.rollback();
             }
         } else {
             System.out.println("En eller begge konti blev ikke fundet.");
-            minConnection.rollback(); // Fortryd transaktion
+            minConnection.rollback();
         }
         if (resultSetRegFra != null) {
             resultSetRegFra.close();
@@ -68,7 +67,7 @@ public class BankKontoOpgave {
             resultSetRegTil.close();
         }
         if (minConnection != null) {
-            minConnection.setAutoCommit(true); // Tilbage til autocommit
+            minConnection.setAutoCommit(true);
             minConnection.close();
         }
     }
