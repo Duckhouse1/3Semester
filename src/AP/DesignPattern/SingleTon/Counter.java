@@ -1,6 +1,7 @@
 package AP.DesignPattern.SingleTon;
 
 public class Counter {
+    //Denne opgave kan også laves som ENUM så den er tråd sikker
     private static Counter uniqueInstance;
     private int value;
     private Counter (){
